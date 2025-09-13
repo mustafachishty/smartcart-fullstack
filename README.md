@@ -1,86 +1,145 @@
-# 🛒 SmartCart Frontend
+# 🛒 SmartCart Fullstack E-commerce Platform
 
-Modern e-commerce frontend built with React, TypeScript, and Tailwind CSS.
+[![Deploy to AWS Amplify](https://img.shields.io/badge/Deploy-AWS%20Amplify-orange)](https://console.aws.amazon.com/amplify/home)
+[![React](https://img.shields.io/badge/React-18-blue)](https://reactjs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-Backend-green)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Database-brightgreen)](https://mongodb.com/)
 
-## ✨ Features
+Modern fullstack e-commerce platform with React frontend and Node.js backend, ready for AWS Amplify deployment.
 
-- **Modern UI/UX**: Glass morphism design with smooth animations
-- **Authentication**: Complete login/signup system with JWT
-- **Shopping Cart**: Add to cart, wishlist, and checkout functionality
-- **Product Management**: Browse, search, and filter products
-- **Admin Dashboard**: Product management interface
-- **WhatsApp Integration**: Customer support widget
-- **Responsive Design**: Mobile-first approach
-- **Dark/Light Theme**: Theme switching capability
+## 🚀 **Quick Deploy to AWS Amplify**
 
-## 🚀 Quick Start
+1. **Connect Repository**: Use `https://github.com/mustafachishty/smartcart-fullstack.git`
+2. **Select Branch**: `main`
+3. **Build Settings**: Pre-configured in `amplify.yml`
+4. **Environment Variables**: See deployment guide below
 
-```bash
-# Install dependencies
-npm install
+## ✨ **Features**
 
-# Set up environment variables
-cp .env.example .env
-# Update VITE_API_URL with your backend URL
+### Frontend (React + TypeScript)
+- 🎨 Modern glass morphism UI design
+- 🔐 JWT authentication system
+- 🛒 Shopping cart & wishlist
+- 📱 Responsive mobile-first design
+- 🌙 Dark/light theme toggle
+- 💬 WhatsApp integration
+- ⚡ Framer Motion animations
 
-# Start development server
-npm run dev
+### Backend (Node.js + Express)
+- 🔒 Secure JWT authentication
+- 📊 MongoDB Atlas integration
+- 🛡️ CORS & security middleware
+- 📧 Email service integration
+- 🔄 RESTful API design
+- 📦 Product management system
 
-# Build for production
-npm run build
-```
+## 🛠️ **Tech Stack**
 
-## 🎨 Tech Stack
+**Frontend:**
+- React 18 + TypeScript
+- Tailwind CSS + Framer Motion
+- Vite build tool
+- React Router
 
-- **React 18** - Modern React with hooks
-- **TypeScript** - Type-safe development
-- **Tailwind CSS** - Utility-first styling
-- **Framer Motion** - Smooth animations
-- **Vite** - Fast build tool
-- **React Router** - Client-side routing
+**Backend:**
+- Node.js + Express
+- MongoDB + Mongoose
+- JWT + bcryptjs
+- Nodemailer
 
-## 🌐 Environment Variables
+## 🌐 **Environment Variables**
 
+### Required for Deployment:
 ```env
-VITE_API_URL=https://your-backend-url.com
+# Backend
+NODE_ENV=production
+PORT=5001
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/smartcart
+JWT_SECRET=your_super_secret_jwt_key
+JWT_EXPIRE=7d
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASS=your_app_password
+
+# Frontend
+VITE_API_URL=https://your-app.amplifyapp.com
 ```
 
-## 📱 Pages & Features
+## 📋 **AWS Amplify Deployment Steps**
 
-### 🏠 **Home Page**
-- Hero section with featured products
-- Product categories
-- Company information
+### 1. **AWS Console Setup**
+- Go to AWS Amplify Console
+- Choose "Host web app"
+- Select "GitHub" as source
 
-### 🛍️ **Products**
-- Product grid with filters
-- Search functionality
-- Product detail pages
+### 2. **Repository Connection**
+- Repository: `mustafachishty/smartcart-fullstack`
+- Branch: `main`
+- Build settings: Auto-detected from `amplify.yml`
 
-### 🛒 **Shopping Cart**
-- Add/remove items
-- Quantity management
-- Checkout process
+### 3. **Environment Variables**
+Add all variables listed above in Amplify Console → App Settings → Environment Variables
 
-### 👤 **Authentication**
-- Modern sliding login/signup forms
-- Social media integration
-- JWT token management
+### 4. **Deploy**
+- Review settings and deploy
+- Get your live URL: `https://main.xxxxxxxx.amplifyapp.com`
 
-### 🔧 **Admin Dashboard**
-- Product management
-- Order tracking
-- User management
+## 🏗️ **Project Structure**
+```
+smartcart-fullstack/
+├── src/                    # React frontend
+│   ├── components/         # UI components
+│   ├── contexts/          # React contexts
+│   ├── pages/             # Page components
+│   └── services/          # API services
+├── smartcart-backend/     # Node.js backend
+│   ├── src/
+│   │   ├── controllers/   # Route controllers
+│   │   ├── models/        # MongoDB models
+│   │   ├── routes/        # API routes
+│   │   └── middleware/    # Express middleware
+│   └── server.js          # Entry point
+├── amplify.yml            # Amplify build config
+└── DEPLOYMENT_GUIDE.md    # Detailed deployment guide
+```
 
-### 💬 **Customer Support**
-- WhatsApp integration
-- Quick help options
-- Real-time support
+## 🔧 **Local Development**
 
-## 🚀 Deployment
+### Frontend:
+```bash
+npm install
+npm run dev
+```
 
-Ready for deployment on Netlify, Vercel, or any static hosting platform.
+### Backend:
+```bash
+cd smartcart-backend
+npm install
+npm run dev
+```
 
-## 📝 License
+## 🛡️ **Security Features**
+- JWT token authentication
+- Password hashing with bcrypt
+- CORS protection
+- Input validation
+- Environment variable protection
 
-MIT License
+## 📱 **Pages & Features**
+- 🏠 **Home**: Hero section, featured products
+- 🛍️ **Products**: Grid view, search, filters
+- 🛒 **Cart**: Add/remove items, checkout
+- 👤 **Auth**: Login/signup with validation
+- 🔧 **Admin**: Product management dashboard
+- 💬 **Support**: WhatsApp integration
+
+## 🚀 **Live Demo**
+After deployment, your app will be available at your Amplify URL.
+
+## 📄 **License**
+MIT License - see LICENSE file for details.
+
+---
+
+**Ready for production deployment on AWS Amplify! 🎉**
