@@ -1,0 +1,36 @@
+{
+  "name": "smartcart-backend",
+  "version": "1.0.0",
+  "description": "SmartCart E-commerce Backend API",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "echo 'Backend build complete'",
+    "dev": "nodemon server.js",
+    "stop": "taskkill /IM node.exe /F",
+    "kill-port": "netstat -ano | findstr :5001 && taskkill /PID $(netstat -ano | findstr :5001 | awk '{print $5}') /F",
+    "restart": "npm run stop && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^7.8.7",
+    "nodemailer": "^7.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "ecommerce",
+    "api",
+    "nodejs",
+    "mongodb",
+    "smartcart"
+  ],
+  "author": "SmartCart Team",
+  "license": "MIT"
+}

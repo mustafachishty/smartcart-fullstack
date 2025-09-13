@@ -1,0 +1,28 @@
+version: 1
+backend:
+  phases:
+    build:
+      commands:
+        - '# Navigate to the backend directory and install dependencies'
+        - cd smartcart-backend
+        - npm ci
+        - '# Start the backend server'
+        - npm start &
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - '# Install frontend dependencies'
+        - npm ci
+    build:
+      commands:
+        - '# Build the frontend application'
+        - npm run build
+  artifacts:
+    baseDirectory: dist
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - smartcart-backend/node_modules/**/*
