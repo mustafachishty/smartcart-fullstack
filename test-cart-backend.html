@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Cart Backend</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        button { margin: 5px; padding: 10px; }
+        .result { background: #f5f5f5; padding: 10px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+    <h1>Cart & Wishlist Backend Test</h1>
+    
+    <div class="test-section">
+        <h3>Authentication</h3>
+        <button onclick="testLogin()">Login</button>
+        <button onclick="testRegister()">Register Test User</button>
+        <div id="auth-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Cart Operations</h3>
+        <button onclick="getCart()">Get Cart</button>
+        <button onclick="addToCart()">Add to Cart</button>
+        <button onclick="clearCart()">Clear Cart</button>
+        <div id="cart-result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+        <h3>Wishlist Operations</h3>
+        <button onclick="getWishlist()">Get Wishlist</button>
+        <button onclick="addToWishlist()">Add to Wishlist</button>
+        <button onclick="clearWishlist()">Clear Wishlist</button>
+        <div id="wishlist-result" class="result"></div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5001/api';
+        let authToken = localStorage.getItem('test_token');
+
+        function getHeaders() {
+            return {
+                'Content-Type': 'application/json',
+                ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+            };
+        }
+
+        async function testRegister() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/register`, {
+                    method: 'POST',
+                    headers: getHeaders(),
+                    body: JSON.stringify({
+                        name: 'Test User',
+                        email: 'test@example.com',
+                        password: 'password123'
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('auth-result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                if (data.success && data.data.token) {
+                    authToken = data.data.token;
+                    localStorage.setItem('test_token', authToken);
+                }
+            } catch (error) {
+                document.getElementById('auth-result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function testLogin() {
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: getHeaders(),
+                    body: JSON.stringify({
+                        email: 'test@example.com',
+                        password: 'password123'
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('auth-result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                if (data.success && data.data.token) {
+                    authToken = data.data.token;
+                    localStorage.setItem('test_token', authToken);
+                }
+            } catch (error) {
+                document.getElementById('auth-result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function getCart() {
+            try {
+                const response = await fetch(`${API_BASE}/cart`, {
+                    headers: getHeaders()
+                });
+                const data = await response.json();
+                document.getElementById('cart-result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('cart-result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function addToCart() {
+            try {
+                const response = await fetch(`${API_BASE}/cart/add`, {
+                    method: 'POST',
+                    headers: getHeaders(),
+                    body: JSON.stringify({
+                        productId: '507f1f77bcf86cd799439011', // dummy product ID
+                        quantity: 1
+                    })
+                });
+                const data = await response.json();
+                document.getElementById('cart-result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('cart-result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function clearCart() {
+            try {
+                const response = await fetch(`${API_BASE}/cart/clear`, {
+                    method: 'DELETE',
+                    headers: getHeaders()
+                });
+                const data = await response.json();
+                document.getElementById('cart-result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('cart-result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function getWishlist() {
+            try {
+                const response = await fetch(`${API_BASE}/wishlist`, {
+                    headers: getHeaders()
+                });
+                const data = await response.json();
+                document.getElementById('wishlist-result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('wishlist-result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function addToWishlist() {
+            try {
+                const response = await fetch(`${API_BASE}/wishlist/add/507f1f77bcf86cd799439011`, {
+                    method: 'POST',
+                    headers: getHeaders()
+                });
+                const data = await response.json();
+                document.getElementById('wishlist-result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('wishlist-result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        async function clearWishlist() {
+            try {
+                const response = await fetch(`${API_BASE}/wishlist/clear`, {
+                    method: 'DELETE',
+                    headers: getHeaders()
+                });
+                const data = await response.json();
+                document.getElementById('wishlist-result').innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+            } catch (error) {
+                document.getElementById('wishlist-result').innerHTML = `Error: ${error.message}`;
+            }
+        }
+
+        // Load token on page load
+        if (authToken) {
+            document.getElementById('auth-result').innerHTML = 'Token found in localStorage';
+        }
+    </script>
+</body>
+</html>
